@@ -11,3 +11,10 @@ venv
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+.env
+
+*.db
+*.db-journal
+
+node_modules
