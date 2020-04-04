@@ -210,7 +210,7 @@ Fetches one random question within a specified category. Previously asked questi
 - *Request body:* 
 ```json
 {
-    "previous_questions": [ 1, 2, 3 ],  // Previous question ids
+    "previous_questions": [ 1, 2, 3 ],
     "quiz_category": {
         "id":"integer", 
         "type":"string"
