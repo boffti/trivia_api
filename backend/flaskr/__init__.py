@@ -51,7 +51,7 @@ def create_app(test_config=None):
 
     return jsonify({
       'success': True,
-      'categories' : [ category.id for category in categories ]
+      'categories' : { category.id:category.type for category in categories }
     })
 
   '''
