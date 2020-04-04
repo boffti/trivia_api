@@ -155,6 +155,26 @@ class TriviaTestCase(unittest.TestCase):
         self.assertFalse(data["success"])
         self.assertEqual(data["message"], "unprocessable")
 
+    def test_search_question(self):
+        search = { 'searchTerm': 'first' }
+        res = self.client().post('/questions/search', json=search)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["success"])
+        self.assertTrue(data['questions'])
+        self.assertTrue(data['total_questions'])
+        self.assertFalse(data['current_category'])
+
+    def test_404_search_question(self):
+        search = { 'searchTerm': '' }
+        res = self.client().post('/questions/search', json=search)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertFalse(data["success"])
+        self.assertEqual(data['message'], 'resource not found')
+
     def random_string(self, n):
         return ''.join(random.choices(string.ascii_uppercase, k = n))
 
