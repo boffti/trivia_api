@@ -7,6 +7,7 @@ from flaskr import create_app
 from models import setup_db, Question, Category
 import random
 import math
+import string
 
 load_dotenv()
 
@@ -31,6 +32,13 @@ class TriviaTestCase(unittest.TestCase):
             self.db.init_app(self.app)
             # create all tables
             self.db.create_all()
+
+        self.new_question = {
+            'question': self.random_string(50),
+            'answer': self.random_string(10),
+            'difficulty': self.random_int(1,5),
+            'category': self.random_int(1,5)
+        }
     
     def tearDown(self):
         """Executed after reach test"""
@@ -40,7 +48,6 @@ class TriviaTestCase(unittest.TestCase):
     TODO
     Write at least one test for each test for successful operation and for expected errors.
     """
-
     def test_get_categories(self):
         res = self.client().get('/categories')
         data = json.loads(res.data)
@@ -121,6 +128,38 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 422)
         self.assertFalse(data['success'])
+    
+    def test_add_new_question(self):   
+        old_question_count = len(Question.query.all())
+
+        res = self.client().post('/questions', json=self.new_question)
+        data = json.loads(res.data)
+
+        new_question_count = len(Question.query.all())
+
+        self.assertEqual(new_question_count, old_question_count + 1)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data["success"])
+
+    def test_422_add_question(self):
+        question = {
+            'question': self.random_string(50),
+            'answer': self.random_string(10),
+            'category': 1,
+            'difficulty': self.random_string(5)
+        }
+        res = self.client().post('/questions', json=question)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+        self.assertFalse(data["success"])
+        self.assertEqual(data["message"], "unprocessable")
+
+    def random_string(self, n):
+        return ''.join(random.choices(string.ascii_uppercase, k = n))
+
+    def random_int(self, m, n):
+        return random.randint(m,n)
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
