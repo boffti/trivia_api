@@ -1,3 +1,5 @@
+# Full Stack Trivia API Backend
+
 ![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)
 ![Python Verion](https://img.shields.io/badge/python-3.7-blue)
 
@@ -125,7 +127,7 @@ Fetches a paginated dictionary of questions of all available categories
 Delete an existing questions from the repository of available questions
 - *Request arguments:* `question_id:int`
 
-> Example response:
+>Example response:
 ```json
 {
   "deleted": "28", 
@@ -208,7 +210,7 @@ Fetches one random question within a specified category. Previously asked questi
 - *Request body:* 
 ```json
 {
-    "previous_questions": [ 1, 2, 3 ],  
+    "previous_questions": [ 1, 2, 3 ],  // Previous question ids
     "quiz_category": {
         "id":"integer", 
         "type":"string"
@@ -244,4 +246,4 @@ python test_flaskr.py
 ## Author
 
 #### Aneesh Melkot
- [![AneeshMelkot](https://media-exp1.licdn.com/dms/image/C5603AQHsiim3D67V_A/profile-displayphoto-shrink_200_200/0?e=1586995200&v=beta&t=INRP5iwYUJ8RuCuQK5E0VRmGySKlVMga1fgS0jszh6Q)](http://github.com/boffti)  
+ [![AneeshMelkot](https://media-exp1.licdn.com/dms/image/C5603AQHsiim3D67V_A/profile-displayphoto-shrink_200_200/0?e=1586995200&v=beta&t=INRP5iwYUJ8RuCuQK5E0VRmGySKlVMga1fgS0jszh6Q)](http://github.com/boffti)
