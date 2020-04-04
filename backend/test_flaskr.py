@@ -175,6 +175,22 @@ class TriviaTestCase(unittest.TestCase):
         self.assertFalse(data["success"])
         self.assertEqual(data['message'], 'resource not found')
 
+    def test_question_delete(self):
+        first_record = Question.query.first()
+        res = self.client().delete(f'/questions/{ first_record.id }')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['deleted'], first_record.id)
+    
+    def test_404_question_delete(self):
+        res = self.client().delete(f'/questions/{ self.random_string(2) }')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertFalse(data['success'])
+        self.assertEqual(data['message'], 'resource not found')
+
     def random_string(self, n):
         return ''.join(random.choices(string.ascii_uppercase, k = n))
 
