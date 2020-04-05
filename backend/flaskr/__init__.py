@@ -73,7 +73,7 @@ def create_app(test_config=None):
                 'success': True,
                 'deleted': question_id
             })
-        except:
+        except Exception as e:
             abort(422)
 
     @app.route('/questions', methods=['POST'])
@@ -97,7 +97,7 @@ def create_app(test_config=None):
                 'success': True,
                 'created': question.id
             })
-        except:
+        except Exception as e:
             abort(422)
 
     @app.route('/questions/search', methods=['POST'])
@@ -115,7 +115,7 @@ def create_app(test_config=None):
                 })
             else:
                 abort(404)
-        except:
+        except Exception as e:
             abort(404)
 
     @app.route('/categories/<int:category>/questions', methods=['GET'])
@@ -160,7 +160,7 @@ def create_app(test_config=None):
                 'success': True,
                 'question': random_question
             })
-        except:
+        except Exception as e:
             abort(422)
 
     @app.errorhandler(400)
